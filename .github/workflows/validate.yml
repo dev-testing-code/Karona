@@ -11,6 +11,8 @@ jobs:
   validate:
     name: Validate README and Links
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository

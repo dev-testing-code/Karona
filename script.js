@@ -78,11 +78,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all sections
-document.querySelectorAll('section').forEach(section => {
-    observer.observe(section);
-});
-
 // Observe skill cards
 document.querySelectorAll('.skill-card').forEach((card, index) => {
     card.style.transitionDelay = `${index * 0.1}s`;

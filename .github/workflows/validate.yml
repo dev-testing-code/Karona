@@ -1,0 +1,52 @@
+name: Validate Profile
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate README and Links
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for required files
+        run: |
+          echo "Checking for required files..."
+          test -f README.md || (echo "❌ README.md not found" && exit 1)
+          test -f .gitignore || (echo "⚠️ .gitignore not found" && exit 0)
+          test -f .editorconfig || (echo "⚠️ .editorconfig not found" && exit 0)
+          echo "✅ All required files present"
+
+      - name: Validate Markdown syntax
+        uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          globs: '**/*.md'
+          config: |
+            {
+              "default": true,
+              "MD013": false,
+              "MD033": false,
+              "MD041": false
+            }
+
+      - name: Check for broken links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'no'
+          config-file: '.github/workflows/link-check-config.json'
+          check-modified-files-only: 'no'
+
+      - name: Report success
+        if: success()
+        run: |
+          echo "✅ All validation checks passed!"
+          echo "📄 README.md is valid"
+          echo "🔗 All links are working"

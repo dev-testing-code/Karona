@@ -79,3 +79,9 @@ Feel free to reach out for collaboration, consulting, or just to connect:
 ---
 
 *“Delivering reliable, scalable, and innovative solutions — every day.”*
+
+## 🔧 Repository Info
+
+This repository includes a complete workspace configuration:
+- See [WORKSPACE.md](WORKSPACE.md) for setup instructions
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
